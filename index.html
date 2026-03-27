@@ -11,8 +11,8 @@
     
     <style>
         :root {
-            /* New Romantic/Warm Intro Colors */
-            --bg-color: #5D4A52; /* A soft, warm dusty plum/twilight */
+            /* Intro Twilight Colors */
+            --bg-color: #5D4A52; 
             --text-color: #F9F6F0; 
         }
 
@@ -29,7 +29,7 @@
             transition: background-color 2.5s ease;
         }
 
-        /* --- THE NEW POETIC INTRO STATE --- */
+        /* --- THE POETIC INTRO STATE --- */
         #intro-sequence {
             position: absolute;
             width: 100%;
@@ -68,7 +68,7 @@
             
             width: 90%;
             max-width: 480px; 
-            padding: 4rem 3rem 3rem 3rem; 
+            padding: 2.5rem 3rem 3rem 3rem; /* Reduced top padding now that character has ears */
             border: 1px solid rgba(45, 45, 45, 0.1); 
             background-color: #ffffff;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
@@ -87,11 +87,11 @@
         #celebration::before { top: 25px; left: 25px; border-right: none; border-bottom: none; }
         #celebration::after { bottom: 25px; right: 25px; border-left: none; border-top: none; }
 
-        /* --- CSS EXPRESSIVE FACE --- */
+        /* --- THE PURE CSS CAT CHARACTER --- */
         #css-face-wrapper {
-            width: 100px;
-            height: 70px;
-            margin: 0 auto 2rem auto;
+            width: 120px; /* Widened slightly to fit whiskers */
+            height: 100px; /* Height increased for ears */
+            margin: 0 auto 1.5rem auto; /* Tightened bottom margin */
             position: relative;
             opacity: 0;
         }
@@ -100,12 +100,42 @@
             animation: facePopIn 0.8s ease forwards 0.5s, happyBob 3s infinite ease-in-out 1.3s;
         }
 
+        /* 1. New Feature: Pointed Ears */
+        .ears {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 40px;
+        }
+
+        .ear {
+            width: 0;
+            height: 0;
+            position: absolute;
+            /* Creating triangles using border tricks */
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid #4A4A4A; /* Charcoal ear color */
+        }
+
+        #ear-left { 
+            left: 10px; 
+            transform: rotate(-15deg); /* Angled slightly outwards */
+        }
+        #ear-right { 
+            right: 10px; 
+            transform: rotate(15deg); 
+        }
+
+        /* Adjusting existing features to fit the new head structure */
         .eyes {
             display: flex;
             justify-content: space-between;
             width: 50px;
             margin: 0 auto;
-            padding-top: 15px;
+            padding-top: 45px; /* Pushed down below ears */
+            position: relative;
+            z-index: 2; /* Ensures eyes sit over ears */
         }
 
         .eye {
@@ -114,14 +144,17 @@
             background-color: #4A4A4A; 
             border-radius: 50%;
             transform-origin: center;
-            animation: blink 3s infinite; /* Changed from 4s to 3s */
+            /* Keeps the speedy double-blink loop */
+            animation: blink 3s infinite; 
         }
 
         .cheeks {
             display: flex;
             justify-content: space-between;
             width: 80px;
-            margin: -5px auto 0;
+            margin: -3px auto 0; /* Slightly tighter positioning */
+            position: relative;
+            z-index: 1;
         }
 
         .cheek {
@@ -133,17 +166,64 @@
             animation: pulseBlush 3s infinite alternate;
         }
 
+        /* 2. New Feature: Tiny Cat Nose */
+        .nose {
+            width: 0;
+            height: 0;
+            margin: -5px auto 0;
+            position: relative;
+            z-index: 3;
+            /* Downward pointing triangle nose */
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #4A4A4A;
+        }
+
         .mouth {
             width: 20px;
             height: 10px;
             border-bottom: 3px solid #4A4A4A; 
             border-radius: 50%;
-            margin: -8px auto 0;
+            margin: -6px auto 0; /* Positioned tightly below nose */
+            position: relative;
+            z-index: 2;
         }
+
+        /* 3. New Feature: Whiskers */
+        .whiskers {
+            position: absolute;
+            top: 65px; /* Vertical center of the face */
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .whisker-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px; /* Spacing between whiskers */
+        }
+
+        .whisker {
+            width: 25px;
+            height: 1px;
+            background-color: rgba(74, 74, 74, 0.4); /* Faint charcoal lines */
+            border-radius: 2px;
+        }
+
+        #whiskers-left .whisker { transform-origin: right center; }
+        #whiskers-right .whisker { transform-origin: left center; }
+
+        /* Angling the top and bottom whiskers for a natural spread */
+        #whiskers-left .whisker:nth-child(1) { transform: rotate(15deg); }
+        #whiskers-left .whisker:nth-child(3) { transform: rotate(-15deg); }
+        #whiskers-right .whisker:nth-child(1) { transform: rotate(-15deg); }
+        #whiskers-right .whisker:nth-child(3) { transform: rotate(15deg); }
+
 
         /* --- TYPOGRAPHY --- */
         #card-text-block {
-            text-align: center; 
+            text-align: center; /* Confirmed center alignment */
             max-width: 440px;
             margin: 0 auto;
             opacity: 0;
@@ -228,8 +308,8 @@
             100% { opacity: 0; transform: translateY(-15px); }
         }
 
+        /* The refined, speedy double-blink keyframes */
         @keyframes blink {
-            /* The eye stays open, closes at 46%, opens at 48%, closes at 50%, opens at 52% */
             0%, 44%, 48%, 52%, 100% { transform: scaleY(1); }
             46%, 50% { transform: scaleY(0.1); } 
         }
@@ -270,15 +350,38 @@
     </div>
 
     <div id="celebration">
+        
         <div id="css-face-wrapper">
+            
+            <div class="ears">
+                <div id="ear-left" class="ear"></div>
+                <div id="ear-right" class="ear"></div>
+            </div>
+
+            <div class="whiskers">
+                <div id="whiskers-left" class="whisker-group">
+                    <div class="whisker"></div>
+                    <div class="whisker"></div>
+                    <div class="whisker"></div>
+                </div>
+                <div id="whiskers-right" class="whisker-group">
+                    <div class="whisker"></div>
+                    <div class="whisker"></div>
+                    <div class="whisker"></div>
+                </div>
+            </div>
+
             <div class="eyes">
                 <div class="eye"></div>
                 <div class="eye"></div>
             </div>
+
             <div class="cheeks">
                 <div class="cheek"></div>
                 <div class="cheek"></div>
             </div>
+
+            <div class="nose"></div>
             <div class="mouth"></div>
         </div>
 
@@ -296,7 +399,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // Wait for the poetic intro to finish (~8.5 seconds)
+            // Poetic intro timing (~8.5 seconds)
             setTimeout(() => {
                 const body = document.body;
                 const intro = document.getElementById('intro-sequence');
@@ -315,7 +418,7 @@
 
             magicBtn.addEventListener('click', () => {
                 
-                // 1. Fire ambient confetti
+                // 1. Fire ambient confetti burst
                 confetti({
                     particleCount: 150,
                     spread: 180,
@@ -326,7 +429,7 @@
                     colors: ['#B56576', '#E5D3D6', '#4A4A4A', '#DDCBB3', '#E09F3E'] 
                 });
 
-                // 2. Fire custom emojis
+                // 2. Fire falling emojis
                 for (let i = 0; i < 35; i++) {
                     setTimeout(createFallingParticle, Math.random() * 600);
                 }
