@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Check | Osheen</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Terminal State Colors */
+            --bg-color: #0d0d0d;
+            --text-color: #00ff00;
+            --font-main: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background-color 2.5s ease;
+        }
+
+        /* --- TERMINAL STATE --- */
+        #terminal {
+            width: 80%;
+            max-width: 600px;
+            text-align: left;
+            position: absolute;
+            transition: opacity 1s ease;
+        }
+
+        .log-line {
+            opacity: 0;
+            margin: 10px 0;
+            animation: typeIn 0.1s forwards;
+        }
+
+        /* --- CELEBRATION CARD STATE --- */
+        .celebrate-mode {
+            --bg-color: #F9F6F0; 
+        }
+
+        #celebration {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 2.5s ease 1s; 
+            
+            width: 90%;
+            max-width: 480px; 
+            padding: 4rem 3rem 3rem 3rem; 
+            border: 1px solid rgba(45, 45, 45, 0.1); 
+            background-color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            text-align: center; 
+            border-radius: 8px; 
+        }
+
+        #celebration::before, #celebration::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border: 1px solid rgba(181, 101, 118, 0.4); 
+        }
+        #celebration::before { top: 25px; left: 25px; border-right: none; border-bottom: none; }
+        #celebration::after { bottom: 25px; right: 25px; border-left: none; border-top: none; }
+
+        /* --- CSS EXPRESSIVE FACE --- */
+        #css-face-wrapper {
+            width: 100px;
+            height: 70px;
+            margin: 0 auto 2rem auto;
+            position: relative;
+            opacity: 0;
+        }
+
+        .show #css-face-wrapper {
+            animation: facePopIn 0.8s ease forwards 0.5s, happyBob 3s infinite ease-in-out 1.3s;
+        }
+
+        .eyes {
+            display: flex;
+            justify-content: space-between;
+            width: 50px;
+            margin: 0 auto;
+            padding-top: 15px;
+        }
+
+        .eye {
+            width: 12px;
+            height: 12px;
+            background-color: #4A4A4A; 
+            border-radius: 50%;
+            transform-origin: center;
+            animation: blink 4s infinite;
+        }
+
+        .cheeks {
+            display: flex;
+            justify-content: space-between;
+            width: 80px;
+            margin: -5px auto 0;
+        }
+
+        .cheek {
+            width: 16px;
+            height: 10px;
+            background-color: #B56576; 
+            border-radius: 50%;
+            filter: blur(3px); 
+            animation: pulseBlush 3s infinite alternate;
+        }
+
+        .mouth {
+            width: 20px;
+            height: 10px;
+            border-bottom: 3px solid #4A4A4A; 
+            border-radius: 50%;
+            margin: -8px auto 0;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        #card-text-block {
+            text-align: left; 
+            max-width: 440px;
+            margin: 0 auto;
+            opacity: 0;
+        }
+
+        .show #card-text-block {
+            animation: textFadeIn 1s ease forwards 1s; 
+        }
+
+        .kicker {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.25em; 
+            color: #4A4A4A; 
+            text-transform: uppercase;
+            margin: 0 0 -8px 0; 
+        }
+
+        .name-script {
+            font-family: 'Alex Brush', cursive;
+            font-size: 6.5rem; 
+            color: #B56576; 
+            font-weight: normal;
+            margin: 0 0 1rem 0;
+            line-height: 1.1;
+        }
+
+        .message-body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #333333; 
+            font-weight: 300;
+            margin: 0;
+        }
+
+        /* --- INTERACTIVE MAGIC BUTTON --- */
+        #magic-btn {
+            margin-top: 30px;
+            padding: 12px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: white;
+            background-color: #E09F3E; 
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(224, 159, 62, 0.3);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            opacity: 0; 
+        }
+
+        .show #magic-btn {
+            animation: textFadeIn 1s ease forwards 1.5s; 
+        }
+
+        #magic-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 5px rgba(224, 159, 62, 0.2);
+        }
+
+        /* --- NEW FALLING PARTICLES --- */
+        .particle {
+            position: fixed; 
+            pointer-events: none; 
+            font-size: 1.8rem; 
+            z-index: 9999;
+            top: -50px; 
+            animation: fallDown var(--duration) linear forwards;
+        }
+
+        /* --- UTILITIES & KEYFRAMES --- */
+        .hide { opacity: 0 !important; visibility: hidden !important; }
+        .show { opacity: 1 !important; visibility: visible !important; }
+
+        @keyframes typeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink {
+            0%, 46%, 48%, 100% { transform: scaleY(1); }
+            47% { transform: scaleY(0.1); } 
+        }
+
+        @keyframes happyBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); } 
+        }
+
+        @keyframes pulseBlush {
+            0% { opacity: 0.2; transform: scale(0.9); }
+            100% { opacity: 0.6; transform: scale(1.2); } 
+        }
+
+        @keyframes facePopIn {
+            0% { transform: scale(0.5) translateY(20px); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fallDown {
+            0% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 1; 
+            }
+            80% {
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(calc(100vh + 100px)) rotate(var(--rotation)); 
+                opacity: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="terminal">
+        <div class="log-line" style="animation-delay: 0.5s;">> INITIALIZING OSHEEN_BIRTHDAY_PROTOCOL...</div>
+        <div class="log-line" style="animation-delay: 1.8s;">> Scanning biological age...</div>
+        <div class="log-line" style="animation-delay: 3.0s;">> WARNING: Youth threshold exceeded.</div>
+        <div class="log-line" style="animation-delay: 4.2s;">> Attempting to load wisdom and maturity...</div>
+        <div class="log-line" style="animation-delay: 5.2s;">> ERROR 404: Maturity Not Found.</div>
+        <div class="log-line" style="animation-delay: 6.2s;">> Bypassing system... Deploying emergency celebrations.</div>
+    </div>
+
+    <div id="celebration">
+        <div id="css-face-wrapper">
+            <div class="eyes">
+                <div class="eye"></div>
+                <div class="eye"></div>
+            </div>
+            <div class="cheeks">
+                <div class="cheek"></div>
+                <div class="cheek"></div>
+            </div>
+            <div class="mouth"></div>
+        </div>
+
+        <div id="card-text-block">
+            <p class="kicker">Happy Birthday</p>
+            <h1 class="name-script">Osheen</h1>
+            <p class="message-body">Jokes aside, here's to the moments that make us laugh, the depth in our conversations, and another year of you being entirely wonderful. I hope your day is as bright and beautiful as the energy you bring to the people around you.</p>
+            
+            <button id="magic-btn">Press for Magic!</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            setTimeout(() => {
+                const body = document.body;
+                const terminal = document.getElementById('terminal');
+                const celebration = document.getElementById('celebration');
+
+                body.classList.add('celebrate-mode');
+                terminal.classList.add('hide');
+                celebration.classList.add('show');
+                
+                setTimeout(fireAmbientConfetti, 1200);
+            }, 8500); 
+
+            // --- THE NEW FALLING LOGIC & BUTTON CONFETTI ---
+            const funThings = ['❤️', '✨', '🥰', '🎉', '🌻', '😻', '🎈', '😃'];
+            const magicBtn = document.getElementById('magic-btn');
+
+            magicBtn.addEventListener('click', () => {
+                
+                // 1. Fire a huge burst of standard confetti from the top center
+                confetti({
+                    particleCount: 150,
+                    spread: 180,
+                    origin: { y: -0.1, x: 0.5 }, // Start slightly above the top edge
+                    startVelocity: 35,
+                    gravity: 0.8,
+                    zIndex: 9999, // Ensure it renders over everything
+                    colors: ['#B56576', '#E5D3D6', '#4A4A4A', '#DDCBB3', '#E09F3E'] 
+                });
+
+                // 2. Fire the custom 35 emoji items alongside it
+                for (let i = 0; i < 35; i++) {
+                    setTimeout(createFallingParticle, Math.random() * 600);
+                }
+            });
+
+            function createFallingParticle() {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                particle.innerText = funThings[Math.floor(Math.random() * funThings.length)];
+
+                const randomX = Math.random() * window.innerWidth;
+                const duration = (2.5 + Math.random() * 2.5) + 's';
+                const rotation = (Math.random() * 360 - 180) + 'deg';
+
+                particle.style.left = randomX + 'px';
+                particle.style.setProperty('--duration', duration);
+                particle.style.setProperty('--rotation', rotation);
+
+                document.body.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 6000); 
+            }
+        });
+
+        // The background confetti that runs automatically
+        function fireAmbientConfetti() {
+            const duration = 5000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { 
+                startVelocity: 30, 
+                spread: 360, 
+                ticks: 60, 
+                zIndex: -1, 
+                colors: ['#B56576', '#E5D3D6', '#4A4A4A', '#DDCBB3'] 
+            };
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) { return clearInterval(interval); }
+
+                const particleCount = 40 * (timeLeft / duration);
+                
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount, 
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
+                }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
