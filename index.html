@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Check | Osheen</title>
+    <title>Happy Birthday, Osheen!</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,10 +11,9 @@
     
     <style>
         :root {
-            /* Terminal State Colors */
-            --bg-color: #0d0d0d;
-            --text-color: #00ff00;
-            --font-main: 'Courier New', Courier, monospace;
+            /* New Romantic/Warm Intro Colors */
+            --bg-color: #5D4A52; /* A soft, warm dusty plum/twilight */
+            --text-color: #F9F6F0; 
         }
 
         body {
@@ -22,7 +21,6 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: var(--font-main);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,19 +29,30 @@
             transition: background-color 2.5s ease;
         }
 
-        /* --- TERMINAL STATE --- */
-        #terminal {
-            width: 80%;
-            max-width: 600px;
-            text-align: left;
+        /* --- THE NEW POETIC INTRO STATE --- */
+        #intro-sequence {
             position: absolute;
-            transition: opacity 1s ease;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 1.5s ease;
+            z-index: 10;
         }
 
-        .log-line {
+        .intro-line {
+            position: absolute;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #F9F6F0;
+            letter-spacing: 1px;
             opacity: 0;
-            margin: 10px 0;
-            animation: typeIn 0.1s forwards;
+            padding: 0 20px;
+            max-width: 600px;
         }
 
         /* --- CELEBRATION CARD STATE --- */
@@ -65,6 +74,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
             text-align: center; 
             border-radius: 8px; 
+            z-index: 5;
         }
 
         #celebration::before, #celebration::after {
@@ -197,7 +207,7 @@
             box-shadow: 0 2px 5px rgba(224, 159, 62, 0.2);
         }
 
-        /* --- NEW FALLING PARTICLES --- */
+        /* --- FALLING PARTICLES --- */
         .particle {
             position: fixed; 
             pointer-events: none; 
@@ -211,9 +221,11 @@
         .hide { opacity: 0 !important; visibility: hidden !important; }
         .show { opacity: 1 !important; visibility: visible !important; }
 
-        @keyframes typeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes poeticFade {
+            0% { opacity: 0; transform: translateY(15px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-15px); }
         }
 
         @keyframes blink {
@@ -243,29 +255,17 @@
         }
 
         @keyframes fallDown {
-            0% { 
-                transform: translateY(0) rotate(0deg); 
-                opacity: 1; 
-            }
-            80% {
-                opacity: 1; 
-            }
-            100% { 
-                transform: translateY(calc(100vh + 100px)) rotate(var(--rotation)); 
-                opacity: 0; 
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(calc(100vh + 100px)) rotate(var(--rotation)); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="terminal">
-        <div class="log-line" style="animation-delay: 0.5s;">> INITIALIZING OSHEEN_BIRTHDAY_PROTOCOL...</div>
-        <div class="log-line" style="animation-delay: 1.8s;">> Scanning biological age...</div>
-        <div class="log-line" style="animation-delay: 3.0s;">> WARNING: Youth threshold exceeded.</div>
-        <div class="log-line" style="animation-delay: 4.2s;">> Attempting to load wisdom and maturity...</div>
-        <div class="log-line" style="animation-delay: 5.2s;">> ERROR 404: Maturity Not Found.</div>
-        <div class="log-line" style="animation-delay: 6.2s;">> Bypassing system... Deploying emergency celebrations.</div>
+    <div id="intro-sequence">
+        <div class="intro-line" style="animation: poeticFade 4s ease forwards 0.5s;">Some people just make the world a little brighter...</div>
+        <div class="intro-line" style="animation: poeticFade 4s ease forwards 4.5s;">Today is all about one of them.</div>
     </div>
 
     <div id="celebration">
@@ -284,7 +284,7 @@
         <div id="card-text-block">
             <p class="kicker">Happy Birthday</p>
             <h1 class="name-script">Osheen</h1>
-            <p class="message-body">Jokes aside, here's to the moments that make us laugh, the depth in our conversations, and another year of you being entirely wonderful. I hope your day is as bright and beautiful as the energy you bring to the people around you.</p>
+            <p class="message-body">Here's to the moments that make us smile, the depth in our conversations, and another year of you being entirely wonderful. I hope your day is as bright and beautiful as the energy you bring to the people around you.</p>
             
             <button id="magic-btn">Press for Magic!</button>
         </div>
@@ -295,36 +295,37 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
+            // Wait for the poetic intro to finish (~8.5 seconds)
             setTimeout(() => {
                 const body = document.body;
-                const terminal = document.getElementById('terminal');
+                const intro = document.getElementById('intro-sequence');
                 const celebration = document.getElementById('celebration');
 
                 body.classList.add('celebrate-mode');
-                terminal.classList.add('hide');
+                intro.classList.add('hide');
                 celebration.classList.add('show');
                 
                 setTimeout(fireAmbientConfetti, 1200);
             }, 8500); 
 
-            // --- THE NEW FALLING LOGIC & BUTTON CONFETTI ---
+            // --- MAGIC BUTTON LOGIC ---
             const funThings = ['❤️', '✨', '⭐', '🎉', '🌻', '😻', '🎈', '☀️'];
             const magicBtn = document.getElementById('magic-btn');
 
             magicBtn.addEventListener('click', () => {
                 
-                // 1. Fire a huge burst of standard confetti from the top center
+                // 1. Fire ambient confetti
                 confetti({
                     particleCount: 150,
                     spread: 180,
-                    origin: { y: -0.1, x: 0.5 }, // Start slightly above the top edge
+                    origin: { y: -0.1, x: 0.5 }, 
                     startVelocity: 35,
                     gravity: 0.8,
-                    zIndex: 9999, // Ensure it renders over everything
+                    zIndex: 9999, 
                     colors: ['#B56576', '#E5D3D6', '#4A4A4A', '#DDCBB3', '#E09F3E'] 
                 });
 
-                // 2. Fire the custom 35 emoji items alongside it
+                // 2. Fire custom emojis
                 for (let i = 0; i < 35; i++) {
                     setTimeout(createFallingParticle, Math.random() * 600);
                 }
@@ -352,7 +353,7 @@
             }
         });
 
-        // The background confetti that runs automatically
+        // Ambient Background Confetti
         function fireAmbientConfetti() {
             const duration = 5000;
             const animationEnd = Date.now() + duration;
