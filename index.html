@@ -26,10 +26,8 @@
             min-height: 100vh;
             overflow: hidden;
             transition: background-color 2.5s ease;
-            cursor: pointer; /* Suggests the whole page is interactive */
         }
 
-        /* --- THE POETIC INTRO STATE --- */
         #intro-sequence {
             position: absolute;
             width: 100%;
@@ -40,7 +38,7 @@
             text-align: center;
             transition: opacity 1.5s ease;
             z-index: 10;
-            pointer-events: none; /* Allows clicks to pass through to the body */
+            pointer-events: none; 
         }
 
         .intro-line {
@@ -56,10 +54,8 @@
             max-width: 600px;
         }
 
-        /* --- CELEBRATION CARD STATE --- */
         .celebrate-mode {
             --bg-color: #F9F6F0; 
-            cursor: default; 
         }
 
         #celebration {
@@ -89,25 +85,16 @@
         #celebration::before { top: 25px; left: 25px; border-right: none; border-bottom: none; }
         #celebration::after { bottom: 25px; right: 25px; border-left: none; border-top: none; }
 
-        /* --- THE PURE CSS CAT CHARACTER --- */
         #css-face-wrapper {
-            width: 120px; 
-            height: 100px; 
-            margin: 0 auto 1.5rem auto; 
-            position: relative;
-            opacity: 0;
+            width: 120px; height: 100px; margin: 0 auto 1.5rem auto; 
+            position: relative; opacity: 0;
         }
-
-        .show #css-face-wrapper {
-            animation: facePopIn 0.8s ease forwards 0.5s, happyBob 3s infinite ease-in-out 1.3s;
-        }
+        .show #css-face-wrapper { animation: facePopIn 0.8s ease forwards 0.5s, happyBob 3s infinite ease-in-out 1.3s; }
 
         .ears { position: absolute; top: 0; width: 100%; height: 40px; }
         .ear {
             width: 0; height: 0; position: absolute;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 35px solid #4A4A4A; 
+            border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 35px solid #4A4A4A; 
         }
         #ear-left { left: 10px; transform: rotate(-15deg); }
         #ear-right { right: 10px; transform: rotate(15deg); }
@@ -134,20 +121,16 @@
             width: 0; height: 0; margin: -5px auto 0; position: relative; z-index: 3;
             border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #4A4A4A;
         }
-
         .mouth {
             width: 20px; height: 10px; border-bottom: 3px solid #4A4A4A; 
             border-radius: 50%; margin: -6px auto 0; position: relative; z-index: 2;
         }
 
         .whiskers {
-            position: absolute; top: 65px; width: 100%;
-            display: flex; justify-content: space-between;
+            position: absolute; top: 65px; width: 100%; display: flex; justify-content: space-between;
         }
         .whisker-group { display: flex; flex-direction: column; gap: 4px; }
-        .whisker {
-            width: 25px; height: 1px; background-color: rgba(74, 74, 74, 0.4); border-radius: 2px;
-        }
+        .whisker { width: 25px; height: 1px; background-color: rgba(74, 74, 74, 0.4); border-radius: 2px; }
         #whiskers-left .whisker { transform-origin: right center; }
         #whiskers-right .whisker { transform-origin: left center; }
         #whiskers-left .whisker:nth-child(1) { transform: rotate(15deg); }
@@ -155,7 +138,6 @@
         #whiskers-right .whisker:nth-child(1) { transform: rotate(-15deg); }
         #whiskers-right .whisker:nth-child(3) { transform: rotate(15deg); }
 
-        /* --- TYPOGRAPHY --- */
         #card-text-block { text-align: center; max-width: 440px; margin: 0 auto; opacity: 0; }
         .show #card-text-block { animation: textFadeIn 1s ease forwards 1s; }
 
@@ -163,18 +145,15 @@
             font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500;
             letter-spacing: 0.25em; color: #4A4A4A; text-transform: uppercase; margin: 0 0 -8px 0; 
         }
-
         .name-script {
             font-family: 'Alex Brush', cursive; font-size: 6.5rem; color: #B56576; 
             font-weight: normal; margin: 0 0 1rem 0; line-height: 1.1;
         }
-
         .message-body {
             font-family: 'Montserrat', sans-serif; font-size: 1.05rem; line-height: 1.8;
             color: #333333; font-weight: 300; margin: 0;
         }
 
-        /* --- INTERACTIVE MAGIC BUTTON --- */
         #magic-btn {
             margin-top: 30px; padding: 12px 28px; font-family: 'Montserrat', sans-serif;
             font-size: 0.95rem; font-weight: 500; color: white; background-color: #E09F3E; 
@@ -184,13 +163,11 @@
         .show #magic-btn { animation: textFadeIn 1s ease forwards 1.5s; }
         #magic-btn:active { transform: scale(0.95); box-shadow: 0 2px 5px rgba(224, 159, 62, 0.2); }
 
-        /* --- FALLING PARTICLES --- */
         .particle {
             position: fixed; pointer-events: none; font-size: 1.8rem; 
             z-index: 9999; top: -50px; animation: fallDown var(--duration) linear forwards;
         }
 
-        /* --- UTILITIES & KEYFRAMES --- */
         .hide { opacity: 0 !important; visibility: hidden !important; }
         .show { opacity: 1 !important; visibility: visible !important; }
 
@@ -200,39 +177,15 @@
             80% { opacity: 1; transform: translateY(0); }
             100% { opacity: 0; transform: translateY(-15px); }
         }
-        @keyframes blink {
-            0%, 44%, 48%, 52%, 100% { transform: scaleY(1); }
-            46%, 50% { transform: scaleY(0.1); } 
-        }
-        @keyframes happyBob {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); } 
-        }
-        @keyframes pulseBlush {
-            0% { opacity: 0.2; transform: scale(0.9); }
-            100% { opacity: 0.6; transform: scale(1.2); } 
-        }
-        @keyframes facePopIn {
-            0% { transform: scale(0.5) translateY(20px); opacity: 0; }
-            70% { transform: scale(1.1); }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
-        }
-        @keyframes textFadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fallDown {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateY(calc(100vh + 100px)) rotate(var(--rotation)); opacity: 0; }
-        }
+        @keyframes blink { 0%, 44%, 48%, 52%, 100% { transform: scaleY(1); } 46%, 50% { transform: scaleY(0.1); } }
+        @keyframes happyBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes pulseBlush { 0% { opacity: 0.2; transform: scale(0.9); } 100% { opacity: 0.6; transform: scale(1.2); } }
+        @keyframes facePopIn { 0% { transform: scale(0.5) translateY(20px); opacity: 0; } 70% { transform: scale(1.1); } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+        @keyframes textFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fallDown { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(calc(100vh + 100px)) rotate(var(--rotation)); opacity: 0; } }
     </style>
 </head>
 <body>
-
-    <audio id="bg-music" loop autoplay>
-        <source src="beautiful.mp3" type="audio/mpeg">
-    </audio>
 
     <div id="intro-sequence">
         <div class="intro-line" style="animation: poeticFade 4s ease forwards 0.5s;">Some people just make the world a little brighter...</div>
@@ -264,15 +217,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const bgMusic = document.getElementById('bg-music');
-
-            // --- INVISIBLE AUDIO TRIGGER ---
-            // If the browser blocks the autoplay, this will start the music the first time she taps the screen.
-            document.body.addEventListener('click', () => {
-                if (bgMusic.paused) {
-                    bgMusic.play().catch(e => console.log("Audio play failed:", e));
-                }
-            }, { once: true }); // The 'once: true' ensures this invisible trigger only fires the very first time.
 
             // --- TIMING SEQUENCE ---
             setTimeout(() => {
