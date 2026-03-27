@@ -114,7 +114,7 @@
             background-color: #4A4A4A; 
             border-radius: 50%;
             transform-origin: center;
-            animation: blink 4s infinite;
+            animation: blink 3s infinite; /* Changed from 4s to 3s */
         }
 
         .cheeks {
@@ -229,8 +229,9 @@
         }
 
         @keyframes blink {
-            0%, 46%, 48%, 100% { transform: scaleY(1); }
-            47% { transform: scaleY(0.1); } 
+            /* The eye stays open, closes at 46%, opens at 48%, closes at 50%, opens at 52% */
+            0%, 44%, 48%, 52%, 100% { transform: scaleY(1); }
+            46%, 50% { transform: scaleY(0.1); } 
         }
 
         @keyframes happyBob {
