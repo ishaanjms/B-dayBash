@@ -11,7 +11,6 @@
     
     <style>
         :root {
-            /* Intro Twilight Colors */
             --bg-color: #5D4A52; 
             --text-color: #F9F6F0; 
         }
@@ -27,6 +26,7 @@
             min-height: 100vh;
             overflow: hidden;
             transition: background-color 2.5s ease;
+            cursor: pointer; /* Suggests the whole page is interactive */
         }
 
         /* --- THE POETIC INTRO STATE --- */
@@ -40,6 +40,7 @@
             text-align: center;
             transition: opacity 1.5s ease;
             z-index: 10;
+            pointer-events: none; /* Allows clicks to pass through to the body */
         }
 
         .intro-line {
@@ -58,6 +59,7 @@
         /* --- CELEBRATION CARD STATE --- */
         .celebrate-mode {
             --bg-color: #F9F6F0; 
+            cursor: default; 
         }
 
         #celebration {
@@ -68,7 +70,7 @@
             
             width: 90%;
             max-width: 480px; 
-            padding: 2.5rem 3rem 3rem 3rem; /* Reduced top padding now that character has ears */
+            padding: 2.5rem 3rem 3rem 3rem; 
             border: 1px solid rgba(45, 45, 45, 0.1); 
             background-color: #ffffff;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
@@ -89,9 +91,9 @@
 
         /* --- THE PURE CSS CAT CHARACTER --- */
         #css-face-wrapper {
-            width: 120px; /* Widened slightly to fit whiskers */
-            height: 100px; /* Height increased for ears */
-            margin: 0 auto 1.5rem auto; /* Tightened bottom margin */
+            width: 120px; 
+            height: 100px; 
+            margin: 0 auto 1.5rem auto; 
             position: relative;
             opacity: 0;
         }
@@ -100,201 +102,92 @@
             animation: facePopIn 0.8s ease forwards 0.5s, happyBob 3s infinite ease-in-out 1.3s;
         }
 
-        /* 1. New Feature: Pointed Ears */
-        .ears {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 40px;
-        }
-
+        .ears { position: absolute; top: 0; width: 100%; height: 40px; }
         .ear {
-            width: 0;
-            height: 0;
-            position: absolute;
-            /* Creating triangles using border tricks */
+            width: 0; height: 0; position: absolute;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
-            border-bottom: 35px solid #4A4A4A; /* Charcoal ear color */
+            border-bottom: 35px solid #4A4A4A; 
         }
+        #ear-left { left: 10px; transform: rotate(-15deg); }
+        #ear-right { right: 10px; transform: rotate(15deg); }
 
-        #ear-left { 
-            left: 10px; 
-            transform: rotate(-15deg); /* Angled slightly outwards */
-        }
-        #ear-right { 
-            right: 10px; 
-            transform: rotate(15deg); 
-        }
-
-        /* Adjusting existing features to fit the new head structure */
         .eyes {
-            display: flex;
-            justify-content: space-between;
-            width: 50px;
-            margin: 0 auto;
-            padding-top: 45px; /* Pushed down below ears */
-            position: relative;
-            z-index: 2; /* Ensures eyes sit over ears */
+            display: flex; justify-content: space-between; width: 50px;
+            margin: 0 auto; padding-top: 45px; position: relative; z-index: 2; 
         }
-
         .eye {
-            width: 12px;
-            height: 12px;
-            background-color: #4A4A4A; 
-            border-radius: 50%;
-            transform-origin: center;
-            /* Keeps the speedy double-blink loop */
-            animation: blink 3s infinite; 
+            width: 12px; height: 12px; background-color: #4A4A4A; 
+            border-radius: 50%; transform-origin: center; animation: blink 3s infinite; 
         }
 
         .cheeks {
-            display: flex;
-            justify-content: space-between;
-            width: 80px;
-            margin: -3px auto 0; /* Slightly tighter positioning */
-            position: relative;
-            z-index: 1;
+            display: flex; justify-content: space-between; width: 80px;
+            margin: -3px auto 0; position: relative; z-index: 1;
         }
-
         .cheek {
-            width: 16px;
-            height: 10px;
-            background-color: #B56576; 
-            border-radius: 50%;
-            filter: blur(3px); 
-            animation: pulseBlush 3s infinite alternate;
+            width: 16px; height: 10px; background-color: #B56576; 
+            border-radius: 50%; filter: blur(3px); animation: pulseBlush 3s infinite alternate;
         }
 
-        /* 2. New Feature: Tiny Cat Nose */
         .nose {
-            width: 0;
-            height: 0;
-            margin: -5px auto 0;
-            position: relative;
-            z-index: 3;
-            /* Downward pointing triangle nose */
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 6px solid #4A4A4A;
+            width: 0; height: 0; margin: -5px auto 0; position: relative; z-index: 3;
+            border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #4A4A4A;
         }
 
         .mouth {
-            width: 20px;
-            height: 10px;
-            border-bottom: 3px solid #4A4A4A; 
-            border-radius: 50%;
-            margin: -6px auto 0; /* Positioned tightly below nose */
-            position: relative;
-            z-index: 2;
+            width: 20px; height: 10px; border-bottom: 3px solid #4A4A4A; 
+            border-radius: 50%; margin: -6px auto 0; position: relative; z-index: 2;
         }
 
-        /* 3. New Feature: Whiskers */
         .whiskers {
-            position: absolute;
-            top: 65px; /* Vertical center of the face */
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
+            position: absolute; top: 65px; width: 100%;
+            display: flex; justify-content: space-between;
         }
-
-        .whisker-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px; /* Spacing between whiskers */
-        }
-
+        .whisker-group { display: flex; flex-direction: column; gap: 4px; }
         .whisker {
-            width: 25px;
-            height: 1px;
-            background-color: rgba(74, 74, 74, 0.4); /* Faint charcoal lines */
-            border-radius: 2px;
+            width: 25px; height: 1px; background-color: rgba(74, 74, 74, 0.4); border-radius: 2px;
         }
-
         #whiskers-left .whisker { transform-origin: right center; }
         #whiskers-right .whisker { transform-origin: left center; }
-
-        /* Angling the top and bottom whiskers for a natural spread */
         #whiskers-left .whisker:nth-child(1) { transform: rotate(15deg); }
         #whiskers-left .whisker:nth-child(3) { transform: rotate(-15deg); }
         #whiskers-right .whisker:nth-child(1) { transform: rotate(-15deg); }
         #whiskers-right .whisker:nth-child(3) { transform: rotate(15deg); }
 
-
         /* --- TYPOGRAPHY --- */
-        #card-text-block {
-            text-align: center; /* Confirmed center alignment */
-            max-width: 440px;
-            margin: 0 auto;
-            opacity: 0;
-        }
-
-        .show #card-text-block {
-            animation: textFadeIn 1s ease forwards 1s; 
-        }
+        #card-text-block { text-align: center; max-width: 440px; margin: 0 auto; opacity: 0; }
+        .show #card-text-block { animation: textFadeIn 1s ease forwards 1s; }
 
         .kicker {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.25em; 
-            color: #4A4A4A; 
-            text-transform: uppercase;
-            margin: 0 0 -8px 0; 
+            font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500;
+            letter-spacing: 0.25em; color: #4A4A4A; text-transform: uppercase; margin: 0 0 -8px 0; 
         }
 
         .name-script {
-            font-family: 'Alex Brush', cursive;
-            font-size: 6.5rem; 
-            color: #B56576; 
-            font-weight: normal;
-            margin: 0 0 1rem 0;
-            line-height: 1.1;
+            font-family: 'Alex Brush', cursive; font-size: 6.5rem; color: #B56576; 
+            font-weight: normal; margin: 0 0 1rem 0; line-height: 1.1;
         }
 
         .message-body {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #333333; 
-            font-weight: 300;
-            margin: 0;
+            font-family: 'Montserrat', sans-serif; font-size: 1.05rem; line-height: 1.8;
+            color: #333333; font-weight: 300; margin: 0;
         }
 
         /* --- INTERACTIVE MAGIC BUTTON --- */
         #magic-btn {
-            margin-top: 30px;
-            padding: 12px 28px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: white;
-            background-color: #E09F3E; 
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(224, 159, 62, 0.3);
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
-            opacity: 0; 
+            margin-top: 30px; padding: 12px 28px; font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem; font-weight: 500; color: white; background-color: #E09F3E; 
+            border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 15px rgba(224, 159, 62, 0.3);
+            transition: transform 0.1s ease, box-shadow 0.1s ease; opacity: 0; 
         }
-
-        .show #magic-btn {
-            animation: textFadeIn 1s ease forwards 1.5s; 
-        }
-
-        #magic-btn:active {
-            transform: scale(0.95);
-            box-shadow: 0 2px 5px rgba(224, 159, 62, 0.2);
-        }
+        .show #magic-btn { animation: textFadeIn 1s ease forwards 1.5s; }
+        #magic-btn:active { transform: scale(0.95); box-shadow: 0 2px 5px rgba(224, 159, 62, 0.2); }
 
         /* --- FALLING PARTICLES --- */
         .particle {
-            position: fixed; 
-            pointer-events: none; 
-            font-size: 1.8rem; 
-            z-index: 9999;
-            top: -50px; 
-            animation: fallDown var(--duration) linear forwards;
+            position: fixed; pointer-events: none; font-size: 1.8rem; 
+            z-index: 9999; top: -50px; animation: fallDown var(--duration) linear forwards;
         }
 
         /* --- UTILITIES & KEYFRAMES --- */
@@ -307,34 +200,27 @@
             80% { opacity: 1; transform: translateY(0); }
             100% { opacity: 0; transform: translateY(-15px); }
         }
-
-        /* The refined, speedy double-blink keyframes */
         @keyframes blink {
             0%, 44%, 48%, 52%, 100% { transform: scaleY(1); }
             46%, 50% { transform: scaleY(0.1); } 
         }
-
         @keyframes happyBob {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-6px); } 
         }
-
         @keyframes pulseBlush {
             0% { opacity: 0.2; transform: scale(0.9); }
             100% { opacity: 0.6; transform: scale(1.2); } 
         }
-
         @keyframes facePopIn {
             0% { transform: scale(0.5) translateY(20px); opacity: 0; }
             70% { transform: scale(1.1); }
             100% { transform: scale(1) translateY(0); opacity: 1; }
         }
-
         @keyframes textFadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fallDown {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             80% { opacity: 1; }
@@ -344,43 +230,24 @@
 </head>
 <body>
 
+    <audio id="bg-music" loop autoplay>
+        <source src="beautiful.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="intro-sequence">
         <div class="intro-line" style="animation: poeticFade 4s ease forwards 0.5s;">Some people just make the world a little brighter...</div>
         <div class="intro-line" style="animation: poeticFade 4s ease forwards 4.5s;">Today is all about one of them.</div>
     </div>
 
     <div id="celebration">
-        
         <div id="css-face-wrapper">
-            
-            <div class="ears">
-                <div id="ear-left" class="ear"></div>
-                <div id="ear-right" class="ear"></div>
-            </div>
-
+            <div class="ears"><div id="ear-left" class="ear"></div><div id="ear-right" class="ear"></div></div>
             <div class="whiskers">
-                <div id="whiskers-left" class="whisker-group">
-                    <div class="whisker"></div>
-                    <div class="whisker"></div>
-                    <div class="whisker"></div>
-                </div>
-                <div id="whiskers-right" class="whisker-group">
-                    <div class="whisker"></div>
-                    <div class="whisker"></div>
-                    <div class="whisker"></div>
-                </div>
+                <div id="whiskers-left" class="whisker-group"><div class="whisker"></div><div class="whisker"></div><div class="whisker"></div></div>
+                <div id="whiskers-right" class="whisker-group"><div class="whisker"></div><div class="whisker"></div><div class="whisker"></div></div>
             </div>
-
-            <div class="eyes">
-                <div class="eye"></div>
-                <div class="eye"></div>
-            </div>
-
-            <div class="cheeks">
-                <div class="cheek"></div>
-                <div class="cheek"></div>
-            </div>
-
+            <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+            <div class="cheeks"><div class="cheek"></div><div class="cheek"></div></div>
             <div class="nose"></div>
             <div class="mouth"></div>
         </div>
@@ -389,7 +256,6 @@
             <p class="kicker">Happy Birthday</p>
             <h1 class="name-script">Osheen</h1>
             <p class="message-body">Here's to the moments that make us smile, the depth in our conversations, and another year of you being entirely wonderful. I hope your day is as bright and beautiful as the energy you bring to the people around you.</p>
-            
             <button id="magic-btn">Press for Magic!</button>
         </div>
     </div>
@@ -398,8 +264,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // Poetic intro timing (~8.5 seconds)
+            const bgMusic = document.getElementById('bg-music');
+
+            // --- INVISIBLE AUDIO TRIGGER ---
+            // If the browser blocks the autoplay, this will start the music the first time she taps the screen.
+            document.body.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play().catch(e => console.log("Audio play failed:", e));
+                }
+            }, { once: true }); // The 'once: true' ensures this invisible trigger only fires the very first time.
+
+            // --- TIMING SEQUENCE ---
             setTimeout(() => {
                 const body = document.body;
                 const intro = document.getElementById('intro-sequence');
@@ -417,19 +292,12 @@
             const magicBtn = document.getElementById('magic-btn');
 
             magicBtn.addEventListener('click', () => {
-                
-                // 1. Fire ambient confetti burst
                 confetti({
-                    particleCount: 150,
-                    spread: 180,
-                    origin: { y: -0.1, x: 0.5 }, 
-                    startVelocity: 35,
-                    gravity: 0.8,
-                    zIndex: 9999, 
+                    particleCount: 150, spread: 180, origin: { y: -0.1, x: 0.5 }, 
+                    startVelocity: 35, gravity: 0.8, zIndex: 9999, 
                     colors: ['#B56576', '#E5D3D6', '#4A4A4A', '#DDCBB3', '#E09F3E'] 
                 });
 
-                // 2. Fire falling emojis
                 for (let i = 0; i < 35; i++) {
                     setTimeout(createFallingParticle, Math.random() * 600);
                 }
@@ -438,7 +306,6 @@
             function createFallingParticle() {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                
                 particle.innerText = funThings[Math.floor(Math.random() * funThings.length)];
 
                 const randomX = Math.random() * window.innerWidth;
@@ -451,41 +318,24 @@
 
                 document.body.appendChild(particle);
 
-                setTimeout(() => {
-                    particle.remove();
-                }, 6000); 
+                setTimeout(() => { particle.remove(); }, 6000); 
             }
         });
 
-        // Ambient Background Confetti
         function fireAmbientConfetti() {
             const duration = 5000;
             const animationEnd = Date.now() + duration;
-            const defaults = { 
-                startVelocity: 30, 
-                spread: 360, 
-                ticks: 60, 
-                zIndex: -1, 
-                colors: ['#B56576', '#E5D3D6', '#4A4A4A', '#DDCBB3'] 
-            };
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: -1, colors: ['#B56576', '#E5D3D6', '#4A4A4A', '#DDCBB3'] };
 
             function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
             const interval = setInterval(function() {
                 const timeLeft = animationEnd - Date.now();
-
                 if (timeLeft <= 0) { return clearInterval(interval); }
-
                 const particleCount = 40 * (timeLeft / duration);
                 
-                confetti(Object.assign({}, defaults, { 
-                    particleCount, 
-                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } 
-                }));
-                confetti(Object.assign({}, defaults, { 
-                    particleCount, 
-                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } 
-                }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
             }, 250);
         }
     </script>
